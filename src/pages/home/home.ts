@@ -4,6 +4,9 @@ import { SuperTabs } from 'ionic2-super-tabs';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SuperTabsController } from 'ionic2-super-tabs';
+import { Platform } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -27,16 +30,20 @@ export class HomePage {
   scannedCode = null;
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCrtl: AlertController, private barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCrtl: AlertController, private barcodeScanner: BarcodeScanner, private pform: Platform, private viewCtrl: ViewController, private toastCtrl: ToastController) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 
   readCode(){           // Boton flotante FAB para leer un QR y a la vuelta abrir el enlace correspondiente
     this.barcodeScanner.scan().then((barcodeData) => {
-      if(!barcodeData.cancelled)
+      if(barcodeData.cancelled){
+        alert("NO ES QR!!");
+      }
+      else {
+        alert("Ir a la vista del producto leido.")
         this.navCtrl.push('ProductoPage', {contenido: barcodeData});  // No se puede rootNavCtrl, sino no va.
-      else alert("NO ES QR!!");
-      });
+      }
+    });
 
   }
 
@@ -72,4 +79,5 @@ export class HomePage {
   */
 
   }
+
 }
