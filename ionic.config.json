@@ -1,0 +1,8 @@
+{
+  "name": "proyecto-dyepi",
+  "app_id": "f3fbbfda",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
