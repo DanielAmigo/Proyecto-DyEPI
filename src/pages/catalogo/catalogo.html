@@ -3,10 +3,17 @@
 <ion-content padding>
 Página Catálogo
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non tincidunt tortor, rutrum ullamcorper enim. Fusce aliquam eros tempus aliquam vestibulum. Sed sodales erat quis hendrerit ullamcorper. Suspendisse aliquam convallis purus in scelerisque. Sed rutrum dui nec efficitur luctus. Donec sagittis, risus at pulvinar pharetra, nibh turpis tempus tellus, a fermentum odio leo nec magna. Nam accumsan justo ut pulvinar rhoncus. In hac habitasse platea dictumst. Maecenas faucibus odio lorem, at tincidunt quam facilisis et. Maecenas consequat tincidunt mauris. Pellentesque id lacinia mauris. Fusce varius sollicitudin imperdiet. Vestibulum ut volutpat dui, quis rutrum nunc. Integer suscipit erat in ligula iaculis molestie. Aenean efficitur, quam at congue condimentum, lacus leo mattis elit, a egestas est mauris sagittis velit.
-Nullam ut nisi nunc. In ornare elit id cursus tristique. Integer dui risus, interdum vitae ullamcorper in, lobortis sed felis. Nulla ut vestibulum odio. Cras at nunc leo. Etiam sed lobortis nisl. Donec ac augue orci. Maecenas tempus orci eget sapien viverra, a gravida eros gravida. Praesent ut malesuada neque, a laoreet purus.
-Etiam lacinia sed leo et blandit. Nullam congue placerat metus, vitae pharetra arcu consectetur vitae. In gravida enim non aliquam aliquet. Duis quis egestas nisl. Sed diam tellus, facilisis quis egestas interdum, consequat a ligula. Integer mollis tempor finibus. Aliquam eu mauris in metus molestie eleifend. Maecenas non molestie neque. Ut aliquam nisi fringilla tortor consequat, sed venenatis ipsum maximus. Cras euismod egestas risus quis volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique mi a orci cursus, a luctus urna tincidunt. Proin fringilla laoreet diam id venenatis. Etiam tincidunt id urna at tincidunt.
-Nulla vel vehicula arcu, at blandit risus. Cras sodales diam nisl, quis maximus mi venenatis non. Sed sit amet vestibulum dolor. Quisque libero ex, commodo non nisl quis, sodales rutrum quam. Curabitur dui mi, semper interdum ex ultricies, dapibus volutpat ipsum. Cras eleifend pharetra pulvinar. Vivamus a auctor lorem, eget rhoncus neque. Nam ut leo eu sem sodales finibus quis non enim. Morbi nec dictum ex. Integer rutrum sit amet nisi eu elementum. Nulla facilisi. Mauris fermentum justo quis porttitor scelerisque.
-Integer tristique enim quis nulla tempor, a euismod ipsum lacinia. Fusce eu nisl quis dui tristique consectetur. Vestibulum maximus pulvinar sem, vel imperdiet arcu euismod id. Morbi interdum sapien a eleifend iaculis. Morbi mi tortor, consequat quis nunc id, pharetra commodo lacus. Quisque bibendum enim tincidunt risus varius, ut tristique massa aliquet. Donec sodales pharetra eros sit amet accumsan. Sed sit amet nunc eu erat bibendum viverra. Nulla facilisi. Phasellus molestie gravida nisi vitae tempor. 
+<ion-list>
+    <ion-item *ngFor="let producto of productos "(click)='goProducto(producto)'>
+        {{ producto.referencia }}
+        {{ producto.genero }}
+        {{ producto.tipo }}
+        {{ producto.caracteristicas }}
+        {{ producto.descuento }}
+        {{ producto.talla }}
+        {{ producto.colores }}
+        {{ producto.fotos }}
+    </ion-item>
+</ion-list>
 
 </ion-content>
