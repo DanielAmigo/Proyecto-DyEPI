@@ -1,19 +1,17 @@
 <!-- Pestañas que van dentro de HOME, por eso eliminamos el header. -->
 
-<ion-content padding>
-Página Catálogo
+<ion-content>
 
-<ion-list>
-    <ion-item *ngFor="let producto of productos "(click)='goProducto(producto)'>
-        {{ producto.referencia }}
-        {{ producto.genero }}
-        {{ producto.tipo }}
-        {{ producto.caracteristicas }}
-        {{ producto.descuento }}
-        {{ producto.talla }}
-        {{ producto.colores }}
-        {{ producto.fotos }}
-    </ion-item>
-</ion-list>
+<div>
+    <ion-grid>
+        <ion-row>
+            <ion-col #product col-6 col-md-4 col-xl-3 *ngFor="let producto of productos" (click)="openProducto(producto)">
+                <div class="image-container" [style.background-image]="'url('+producto.fotos[0]+')'">
+                {{ producto.descuento }}
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>
 
 </ion-content>

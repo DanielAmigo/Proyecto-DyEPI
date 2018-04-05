@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProductoService } from '../../services/producto.services';
 
 /**
  * Generated class for the CatalogoPage page.
@@ -15,11 +16,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CatalogoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  productos: any[] = [];
+  rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public productoService: ProductoService) {
+    this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CatalogoPage');
+    this.productos = this.productoService.getProducts();
   }
 
+  openProducto(object){
+    console.log(object);
+    this.rootNavCtrl.push('ProductoPage', {producto: object});  // No se puede rootNavCtrl, sino no va.
+  }
+  
 }

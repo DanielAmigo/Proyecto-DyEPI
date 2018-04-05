@@ -15,12 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProductoPage {
 
-  contenido: string;
+  producto: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(navParams.get('contenido'));
-    if(navParams.get('contenido')!=undefined) this.contenido = navParams.get('contenido');    // Recibe el valor de QR
-    else this.contenido = "No vengo de QR";
+    console.log(navParams.get('producto'));
+    if(navParams.get('producto')!=undefined) this.producto = navParams.get('producto');    // Recibe el valor de QR
+    else this.producto = "No vengo de QR";
   }
 
   ionViewDidLoad() {
