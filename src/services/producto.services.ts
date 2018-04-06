@@ -1,10 +1,24 @@
 import { Producto } from "../models/producto.model";
-export class ProductoService{
+import { SuperTabsController } from 'ionic2-super-tabs';
+
+
+export class ProductoService {
+
+    private superTabsCtrl: SuperTabsController;
 
     getProducts(){
         return this.products;
     }
 
+    getCart(){
+        return this.cart;
+    }
+
+    pushCart(producto){
+        return this.cart.push(producto);
+    }
+
+    private cart: Producto [] = [];
 
     private products: Producto []=[
         {"key":"Clave1",

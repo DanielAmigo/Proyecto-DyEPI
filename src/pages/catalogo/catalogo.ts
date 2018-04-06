@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductoService } from '../../services/producto.services';
+import { SuperTabsController } from 'ionic2-super-tabs';
 
 /**
  * Generated class for the CatalogoPage page.
@@ -14,6 +15,8 @@ import { ProductoService } from '../../services/producto.services';
   selector: 'page-catalogo',
   templateUrl: 'catalogo.html',
 })
+
+
 export class CatalogoPage {
 
   productos: any[] = [];

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProductoService } from '../../services/producto.services';
 import { SuperTabsController } from 'ionic2-super-tabs';
 
 /**
@@ -35,7 +36,7 @@ export class CarritoPage {
   }
 
   jumpToAccount() {
-    this.superTabsCtrl.slideTo(3);
+    this.superTabsCtrl.slideTo(1);
   }
 
   hideToolbar() {

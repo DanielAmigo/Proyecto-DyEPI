@@ -26,4 +26,9 @@
   {{ producto.precio }}
   {{ producto.descuento }}
   <!-- <div class="image-container" [style.background-image]="'url('+producto.fotos[0]+')'"></div> -->
+
+  <button ion-button icon-only class="button-navbar pink" id="nobackground" (click)="addProductToCart(producto)">
+    <ion-icon name="ios-refresh"></ion-icon>
+  </button>
+
 </ion-content>

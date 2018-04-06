@@ -30,8 +30,32 @@ export class HomePage {
   scannedCode = null;
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCrtl: AlertController, private barcodeScanner: BarcodeScanner, private pform: Platform, private viewCtrl: ViewController, private toastCtrl: ToastController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCrtl: AlertController,
+    private barcodeScanner: BarcodeScanner,
+    private pform: Platform,
+    private viewCtrl: ViewController,
+    private toastCtrl: ToastController,
+    private superTabsCtrl: SuperTabsController,
+  ){
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
+
+    if(navParams.get('tabSeleccionada')!=undefined){      // Si vuelvo a home con parametro. EJ: Producto seleccionado, para ir a carrito.
+      const tabGo = navParams.get('tabSeleccionada');    // Recibe el valor de QR
+      console.log("TENGO QUE IR A "+tabGo);
+
+      for (let index = 0; index < this.pages.length; index++) {
+        if(this.pages[index].id === tabGo){
+          console.log("Encontrado indice: "+tabGo+" en pos: "+index);
+          this.superTabsCtrl.slideTo(index); 
+          break;
+        }
+      }
+     
+    }
+
   }
 
   readCode(){           // Boton flotante FAB para leer un QR y a la vuelta abrir el enlace correspondiente
@@ -40,7 +64,7 @@ export class HomePage {
         alert("NO ES QR!!");
       }
       else {
-        alert("Ir a la vista del producto leido.")
+        alert("Ir a la vista del producto leido.");
         this.navCtrl.push('ProductoPage', {contenido: barcodeData});  // No se puede rootNavCtrl, sino no va.
       }
     });
@@ -48,36 +72,7 @@ export class HomePage {
   }
 
   onTabSelected(ev: any) {
-
     this.selectedTab = ev.index;
-    this.superTabs.clearBadge(this.pages[ev.index].id);
-    /*
-    if(ev.index === 2){ // Si entramos en la página 2, salta un aviso de si queremos entrar o no.
-      let alert = this.alertCrtl.create({
-        title: 'Secret Page',
-        message: 'Are you sure oseque',
-        buttons: [
-          {
-            text: 'NO',
-            handler: () => {
-              this.superTabs.slideTo(this.selectedTab);
-            }
-            }, {
-            text: 'Yes',
-            handler: () => {
-              this.selectedTab = ev.index;
-            }
-          }
-        ]
-      });
-      alert.present();
-
-    } else{
-      
-    }
-  }
-  */
-
   }
 
 }

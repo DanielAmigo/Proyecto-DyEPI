@@ -6,19 +6,21 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { HomePageModule } from '../pages/home/home.module';
 
 import { SuperTabsModule } from 'ionic2-super-tabs';                  // Las tabs que se pueden deslizar
-import { AutohideDirective } from '../directives/autohide/autohide';  // Autoocultado del FAB del QR scanner
+import { AutohideDirective } from '../directives/autohide/autohide';  // Autoocultado del FAB del QR scanner. NO FUNCIONA
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';       // La funcionalidad de Cordova para escanear
 
 import { ProductoService } from '../services/producto.services';
+import { ProductoPage } from '../pages/producto/producto';
 
 @NgModule({
   declarations: [
     MyApp,
 
     // Pages
-    HomePage,
+    //HomePage,
 
     // Directives
     AutohideDirective
@@ -26,7 +28,8 @@ import { ProductoService } from '../services/producto.services';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot()
+    SuperTabsModule.forRoot(),
+    HomePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

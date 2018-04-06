@@ -12,5 +12,39 @@
   <button ion-button full (click)="showToolbar()">show Toolbar</button>
   <button ion-button full (click)="goToDetails()">go To Details</button>
 
+    <!-- if the cart has no elements
+  <ion-view view-title="Cart">
+      <ion-content>
+  
+    <div ng-show="cart.items.length === 0">
+      <div>Your Cart is empty</div>
+    </div>
+    
+    <div ng-hide="cart.items.length === 0">
+      <div class="list">
+        <div class="item item-thumbnail-left" ng-repeat="item in cart.items">
+          <img ng-src="{{item.images[0]}}">
+          <h2>{{ item.name }}</h2>
+          <h4>$ {{ item.price }}</h4>
+          <div>
+            <a class="ion ion-plus"></a>
+            {{item.quantity}}
+            <a class="ion ion-minus"></a>
+          </div>
+        </div>
+        <div class="item">
+          <div class="padding">
+            <h3>Total: $ {{getCartTotal()}}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="padding">
+        <a class="button button-positive button-block" href="#/app/checkout"><span class="ion ion-android-done-all"></span> Checkout</a>
+      </div>
+    </div>
+    </ion-content>
+    </ion-view>
+  -->
+
 </ion-content>
     
