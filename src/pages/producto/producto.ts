@@ -56,7 +56,15 @@ export class ProductoPage {
           text: 'Sí',
           handler: () => {
             console.log('Yes selected');
-            this.navCtrl.push('HomePage', {tabSeleccionada: "CarritoTab"});  // No se puede rootNavCtrl, sino no va.
+            this.navCtrl.pop();  // Volvemos atrás.
+
+            
+            // Esta forma deja una flecha y al lado el boton menu
+            /*
+            let options = {tabSeleccionada: "CarritoTab"};
+            this.navCtrl.push("HomePage", options).then(() => {
+              this.navCtrl.remove(0);
+            }); */
           }
         },
         {

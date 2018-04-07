@@ -18,9 +18,16 @@ import { SuperTabsController } from 'ionic2-super-tabs';
 export class CarritoPage {
 
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
+  carrito: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private superTabsCtrl: SuperTabsController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private superTabsCtrl: SuperTabsController,
+    public productoService: ProductoService,
+  ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
+    this.carrito = this.productoService.getCart();
   }
 
   goToDetails() {

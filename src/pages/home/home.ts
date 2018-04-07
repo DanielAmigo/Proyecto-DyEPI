@@ -7,6 +7,7 @@ import { SuperTabsController } from 'ionic2-super-tabs';
 import { Platform } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { ProductoService } from '../../services/producto.services';
 
 @IonicPage()
 @Component({
@@ -33,6 +34,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public productoService: ProductoService,
     private alertCrtl: AlertController,
     private barcodeScanner: BarcodeScanner,
     private pform: Platform,
@@ -41,21 +43,6 @@ export class HomePage {
     private superTabsCtrl: SuperTabsController,
   ){
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
-
-    if(navParams.get('tabSeleccionada')!=undefined){      // Si vuelvo a home con parametro. EJ: Producto seleccionado, para ir a carrito.
-      const tabGo = navParams.get('tabSeleccionada');    // Recibe el valor de QR
-      console.log("TENGO QUE IR A "+tabGo);
-
-      for (let index = 0; index < this.pages.length; index++) {
-        if(this.pages[index].id === tabGo){
-          console.log("Encontrado indice: "+tabGo+" en pos: "+index);
-          this.superTabsCtrl.slideTo(index); 
-          break;
-        }
-      }
-     
-    }
-
   }
 
   readCode(){           // Boton flotante FAB para leer un QR y a la vuelta abrir el enlace correspondiente
@@ -74,5 +61,15 @@ export class HomePage {
   onTabSelected(ev: any) {
     this.selectedTab = ev.index;
   }
+
+  // Cuando hace POP y vuelve a esta vista, revisamos el carrito, si hay algo, a esa vista.
+  public ionViewWillEnter() {
+    console.log("Volvemos a Home. ionViewWillEnter");
+    if(this.productoService.getCart().length > 0){
+      console.log("Carrito con objetos, pasando a esa tab!!!");
+      this.superTabsCtrl.slideTo(3); 
+    }
+}
+
 
 }

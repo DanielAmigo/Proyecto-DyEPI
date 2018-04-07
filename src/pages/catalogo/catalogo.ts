@@ -22,7 +22,11 @@ export class CatalogoPage {
   productos: any[] = [];
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public productoService: ProductoService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public productoService: ProductoService
+  ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 
