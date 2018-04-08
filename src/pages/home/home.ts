@@ -64,12 +64,14 @@ export class HomePage {
 
   // Cuando hace POP y vuelve a esta vista, revisamos el carrito, si hay algo, a esa vista.
   public ionViewWillEnter() {
+    this.productoService.getTotalCost();
+
     console.log("Volvemos a Home. ionViewWillEnter");
     if(this.productoService.getCart().length > 0){
       console.log("Carrito con objetos, pasando a esa tab!!!");
       this.superTabsCtrl.slideTo(3); 
     }
-}
+  }
 
 
 }

@@ -5,6 +5,18 @@ import { SuperTabsController } from 'ionic2-super-tabs';
 export class ProductoService {
 
     private superTabsCtrl: SuperTabsController;
+    totalCost: number;
+    private cart: Producto [] = [];
+
+    getTotalCost() {
+        this.totalCost = 0;
+        for (let index = 0; index < this.cart.length; index++) {
+            this.totalCost += Number(this.cart[index].seleccion[1]);
+        }
+        console.log("Precio modificado: "+this.totalCost);
+        return this.totalCost;
+    }
+    
 
     getProducts(){
         return this.products;
@@ -18,7 +30,11 @@ export class ProductoService {
         return this.cart.push(producto);
     }
 
-    private cart: Producto [] = [];
+    deleteProductCart(index){
+        this.cart.splice(index, 1);
+        return this.cart;
+    }
+
 
     private products: Producto []=[
         {"key":"Clave1",
@@ -34,7 +50,7 @@ export class ProductoService {
          "precio": 9.00,
          "descuento": 8.99,
          "seleccion": [],
-         "fotos": ["https://images.primark.com/productsimages/N35397148858552-large.jpg"]
+         "fotos": ["https://images.primark.com/productsimages/N35397148858552-large.jpg", "http://img1.codigonuevo.com/65/6f/05/primark-chanclas-930x600.jpg"]
         },
         {"key":"Clave2",
         "referencia": "N35397145979595",
@@ -49,7 +65,7 @@ export class ProductoService {
         "precio": 9.00,
          "descuento": 8.99,
         "seleccion": [],
-        "fotos": ["https://images.primark.com/productsimages/N35397145979595-large.jpg"]
+        "fotos": ["https://images.primark.com/productsimages/N35397145979595-large.jpg", "http://img1.codigonuevo.com/65/6f/05/primark-chanclas-930x600.jpg"]
        },
        {"key":"Clave3",
         "referencia": "N35397175927726",
@@ -64,7 +80,7 @@ export class ProductoService {
         "precio": 21.00,
         "descuento": 19.99,
         "seleccion": [],
-        "fotos": ["https://images.primark.com/productsimages/N35397175927726-large.jpg"]
+        "fotos": ["https://images.primark.com/productsimages/N35397175927726-large.jpg", "http://img1.codigonuevo.com/65/6f/05/primark-chanclas-930x600.jpg"]
        }
     ];
 }

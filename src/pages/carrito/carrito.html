@@ -1,15 +1,28 @@
 <!-- Pestañas que van dentro de HOME, por eso eliminamos el header. -->
 
-<ion-content>
-  <div>
-      <ion-grid>
-          <ion-row>
-              <ion-col #product col-6 col-md-4 col-xl-3 *ngFor="let producto of carrito" (click)="openProducto(producto)">
-                  <div class="image-container" [style.background-image]="'url('+producto.fotos[0]+')'">
-                  {{ producto.descuento }}
-                  </div>
-              </ion-col>
-          </ion-row>
-      </ion-grid>
-  </div>
+<ion-content padding>
+
+    <div class="cartEmpty" *ngIf="carrito.length === 0">The cart is empty</div>
+
+    <ion-list *ngIf="carrito.length > 0">
+        <ion-item class="itemCarrito" *ngFor="let producto of carrito; let i = index" tappable (click)="openProducto(producto)">
+            <ion-thumbnail item-start class="thumbnail-photos">
+                <img [src]="producto.fotos[0]">
+            </ion-thumbnail>
+            <h2>{{ producto.descripcion }}</h2>
+            <p>Talla {{ producto.seleccion[0] }}</p>
+            <p>Coste {{ producto.seleccion[1] }}</p>
+            <button ion-button clear item-end (click)="deleteProductoCarrito(producto, i);$event.stopPropagation();">Borrar</button>
+        </ion-item>
+        <ion-item>
+            <h3>TOTAL: {{ number(totalCost) }} €</h3>
+        </ion-item>
+    </ion-list>
+    
+
+    <ion-fab bottom left>
+        <button ion-fab (click)="payCart()" [disabled]="carrito.length === 0">
+            <ion-icon name="done-all"></ion-icon>
+        </button>
+    </ion-fab>
 </ion-content>

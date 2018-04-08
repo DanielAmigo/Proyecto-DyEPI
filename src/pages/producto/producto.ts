@@ -19,7 +19,9 @@ import { SuperTabsController } from 'ionic2-super-tabs';
 export class ProductoPage {
 
   producto: any;
-
+  imageSelected: string;
+  talla: string;
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,19 +34,42 @@ export class ProductoPage {
 
     if(navParams.get('producto')!=undefined) this.producto = navParams.get('producto');    // Recibe el valor de QR
     else this.producto = "No vengo de QR";
+
+    if(this.producto.seleccion.length > 0){       // Vengo de carrito, porque tengo una talla. Habria que poner ese valor en el selector
+      this.talla = this.producto.seleccion[0];
+    }
+
+    //Añadimos la primera imagen por defecto
+    this.imageSelected = this.producto.fotos[0];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductoPage');
   }
 
-  addProductToCart(producto){                               // Añadimos al carrito de ProductoService este producto, con los parametros seleccionados.
-    console.log("addProductToCart! "+producto);
 
-    producto.seleccion = ["HOLA"];  // Añadir la seleccion de este producto (talla, etc.)
+  cambiarImagen(foto, index){
+    console.log("PULSADA LA FOTO: "+foto+" "+index);
+
+    this.imageSelected = this.producto.fotos[index];
+
+  }
+
+  
+  addProductToCart(producto){                               // Añadimos al carrito de ProductoService este producto, con los parametros seleccionados.
+    console.log("addProductToCart! "+producto+" con talla: "+this.talla);
+
+    // Añadimos la selección
+    producto.seleccion = [this.talla];  // Añadir la seleccion de este producto (talla, etc.)
+    if(producto.descuento != 0){
+      producto.seleccion.push(producto.descuento);
+    }
+    else{
+      producto.seleccion.push(producto.precio);
+    }
 
     console.log(producto);
-
+    
     const items = this.productoService.pushCart(producto);  // Actualizamos el carrito correspondiente.
     this.superTabsCtrl.setBadge('CarritoTab', items);       // Actualizamos el numerito del carrito.
 
@@ -57,14 +82,6 @@ export class ProductoPage {
           handler: () => {
             console.log('Yes selected');
             this.navCtrl.pop();  // Volvemos atrás.
-
-            
-            // Esta forma deja una flecha y al lado el boton menu
-            /*
-            let options = {tabSeleccionada: "CarritoTab"};
-            this.navCtrl.push("HomePage", options).then(() => {
-              this.navCtrl.remove(0);
-            }); */
           }
         },
         {

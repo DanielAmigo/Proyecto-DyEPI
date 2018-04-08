@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProductoService } from '../../services/producto.services';
 import { SuperTabsController } from 'ionic2-super-tabs';
 
@@ -19,39 +19,60 @@ export class CarritoPage {
 
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
   carrito: any[] = [];
+  totalCost: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private superTabsCtrl: SuperTabsController,
     public productoService: ProductoService,
+    public alertCtrl: AlertController,
   ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
     this.carrito = this.productoService.getCart();
   }
 
-  goToDetails() {
-    this.rootNavCtrl.push('ProductoPage');  // Vamos a la nueva vista.
+  openProducto(object){
+    console.log(object);
+    this.rootNavCtrl.push('ProductoPage', {producto: object});  // No se puede rootNavCtrl, sino no va.
   }
 
-  setBadge() {
-    this.superTabsCtrl.setBadge('MapaTab', 6);
+  payCart(){
+    console.log("PAYCARTTTT");
   }
 
-  clearBadge() {
-    this.superTabsCtrl.clearBadge('MapaTab');
+  deleteProductoCarrito(producto, index){
+    let alert = this.alertCtrl.create({
+      title: '¿Seguro que quieres borrar este producto?',
+      buttons: [
+        {
+          text: 'Sí',
+          handler: () => {
+            console.log('Yes selected');
+            this.carrito = this.productoService.deleteProductCart(index);
+            this.totalCost = this.productoService.getTotalCost();
+            if(this.carrito.length > 0) this.superTabsCtrl.setBadge('CarritoTab', this.carrito.length);       // Actualizamos el numerito del carrito.
+            else this.superTabsCtrl.clearBadge("CarritoTab");
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('No selected!');
+          }
+        }
+      ]
+  });
+
+  alert.present();
+
   }
 
-  jumpToAccount() {
-    this.superTabsCtrl.slideTo(1);
+  // Cuando hace POP y vuelve a esta vista, revisamos el carrito, si hay algo, a esa vista.
+  public ionViewWillEnter() {
+    this.carrito = this.productoService.getCart();
+    this.totalCost = this.productoService.getTotalCost();
   }
 
-  hideToolbar() {
-    this.superTabsCtrl.showToolbar(false);
-  }
-
-  showToolbar() {
-    this.superTabsCtrl.showToolbar(true);
-  }
 
 }

@@ -1,17 +1,17 @@
 <!-- Pestañas que van dentro de HOME, por eso eliminamos el header. -->
 
 <ion-content>
-
-<div>
     <ion-grid>
         <ion-row>
-            <ion-col #product col-6 col-md-4 col-xl-3 *ngFor="let producto of productos" (click)="openProducto(producto)">
-                <div class="image-container" [style.background-image]="'url('+producto.fotos[0]+')'">
-                {{ producto.descuento }}
-                </div>
+            <ion-col col-6 *ngFor="let producto of productos">
+                <ion-card class="cardProducto"  (click)="openProducto(producto)">
+                    <img class="imagen" [src]="producto.fotos[0]">
+                    <div class="textoDentro">
+                        <div class="textoPrecio"> {{ producto.precio }}€ </div>
+                        <div class="textoDescuento">{{ producto.descuento }}€</div>
+                    </div>
+                </ion-card>
             </ion-col>
         </ion-row>
     </ion-grid>
-</div>
-
 </ion-content>

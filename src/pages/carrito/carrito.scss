@@ -1,3 +1,17 @@
 page-carrito {
 
+    .cartEmpty{
+        text-align: center;
+        vertical-align: center;
+    }
+
+    .itemCarrito ion-thumbnail {
+        min-width: 5rem;    
+        min-height: 5rem;
+        img {
+            max-width: 5rem;    
+            min-width: 5rem;
+        }
+    }
+
 }

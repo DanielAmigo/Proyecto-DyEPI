@@ -1,3 +1,31 @@
 page-producto {
 
+    .image-container{
+        background-size: cover;
+        min-width: 150px;
+        min-height: 200px;
+    }
+
+    .tipoProducto{
+        text-align: center;
+        font-size: 10px;
+        color: grey;
+        display: inline;
+    }
+
+    .thumbnail-photos{
+        max-height: 100px;
+        border: 1px;
+        border-color: aqua;
+    }
+
+    .sliderFotos{
+        height: 66%;
+    }
+
+    .imageSlider{
+        max-height: 350px;
+    }
+
+
 }

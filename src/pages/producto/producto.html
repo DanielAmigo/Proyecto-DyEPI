@@ -7,28 +7,66 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>producto</ion-title>
+    <ion-title>{{ producto.descripcion }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  {{ producto.referencia }}
-  {{ producto.tipo }}
-  {{ producto.genero }}
-  {{ producto.caracteristicas }}
+  <ion-list class="tipoProducto">
+    <ion-row>
+      <ion-col>{{ producto.genero }}</ion-col>
+      <ion-col col-1>-</ion-col>
+      <ion-col>{{ producto.tipo }}</ion-col>
+      <ion-col col-1>-</ion-col>
+      <ion-col>{{ producto.caracteristicas }}</ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>{{ producto.referencia }}</ion-col>
+    </ion-row>
+  </ion-list>
+
+  <!-- Slider de imágenes -->
+  <ion-slides class="sliderFotos" pager zoom>
+      <ion-slide *ngFor="let foto of producto.fotos; let i = index">
+        <div class="swiper-zoom-container">
+          <img class="imageSlider" data-src="{{foto}}"/>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+
+  <!-- Imagenes con selector thumbnail 
+  <div class="image-container" [style.background-image]="'url('+imageSelected+')'"></div>
+  <ion-item>
+      <ion-thumbnail item-start class="thumbnail-photos" *ngFor="let foto of producto.fotos; let i = index">
+          <img [src]="foto" (click)="cambiarImagen(foto, i)">
+      </ion-thumbnail>
+  </ion-item> -->
+
+  
   {{ producto.colores }}
   {{ producto.otrosProductos }}
   {{ producto.talla }}
-  {{ producto.descripcion }}
   {{ producto.materiales }}
   {{ producto.precio }}
   {{ producto.descuento }}
-  <!-- <div class="image-container" [style.background-image]="'url('+producto.fotos[0]+')'"></div> -->
 
-  <button ion-button icon-only class="button-navbar pink" id="nobackground" (click)="addProductToCart(producto)">
-    <ion-icon name="ios-refresh"></ion-icon>
-  </button>
+
+  <ion-item>
+    <ion-label>Talla</ion-label>
+    <ion-select [(ngModel)]="talla">
+      <ion-option value="XS">XS</ion-option>
+      <ion-option value="S">S</ion-option>
+    </ion-select>
+</ion-item>
+
+
+  <ion-fab bottom right #fab id="fab">
+    <button ion-fab [disabled]="talla==undefined" (click)="addProductToCart(producto)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
