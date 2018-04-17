@@ -15,6 +15,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';       // La func
 import { ProductoService } from '../services/producto.services';
 import { ProductoPage } from '../pages/producto/producto';
 
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -29,7 +34,10 @@ import { ProductoPage } from '../pages/producto/producto';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    HomePageModule
+    HomePageModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
