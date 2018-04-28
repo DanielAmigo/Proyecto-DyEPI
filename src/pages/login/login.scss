@@ -1,0 +1,36 @@
+page-login {
+    ion-navbar.toolbar.toolbar-md {
+        display: none;
+    }        
+
+    ion-content {
+        margin-top: 100px;
+    }
+
+    .ingresar-btn {
+        margin-top: 40px;
+        margin-left: 18px;
+        background-color: green;
+        margin-left: 30%;
+    }
+
+    .registrer-btn {
+        margin-top: 25px;
+        background: white;
+        border: none;
+        box-shadow: none;
+        color: blue;
+        margin-left: 5px;
+        font-size: 13px;
+        display: block;
+        margin-left: 25%;
+    }
+
+    ion-icon.icon.icon-md.ion-md-person {
+        margin-right: 10px;
+    }
+
+    ion-icon.icon.icon-md.ion-md-person-add {
+        margin-right: 5px;
+    }
+}

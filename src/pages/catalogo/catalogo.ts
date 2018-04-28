@@ -4,6 +4,7 @@ import { ProductoService } from '../../services/producto.services';
 import { SuperTabsController } from 'ionic2-super-tabs';
 import { Producto } from '../../models/producto.model';
 import { Injectable } from "@angular/core";     // ERROR: Can't resolve all parameters for (?)
+import * as firebase from 'firebase/app';             // Para obtener nuestro ID en Firebase
 
 /**
  * Generated class for the CatalogoPage page.
@@ -35,6 +36,11 @@ export class CatalogoPage {
    // Consigue que los tasks tengan la key de Firebase!!!!!!
    public ionViewWillEnter() {   // En vez de ngInit porque esto es cada vez que se pone visible!!
     console.log("ionViewWillEnter task.ts");
+
+    //Get the current userID
+    console.log(firebase.auth().currentUser.uid);       // AL ENTRAR AQUI SE IMPRIME EL ID ACTUAL DE FIREBASE, QUEREMOS QUE COINCIDA CON EL DE DATABASE
+
+
     return this.productoService.getProducts()
       .snapshotChanges().subscribe(item => {
         this.productList = [];
