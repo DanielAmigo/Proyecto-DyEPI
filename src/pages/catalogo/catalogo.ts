@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductoService } from '../../services/producto.services';
 import { SuperTabsController } from 'ionic2-super-tabs';
+import { Producto } from '../../models/producto.model';
+import { Injectable } from "@angular/core";     // ERROR: Can't resolve all parameters for (?)
 
 /**
  * Generated class for the CatalogoPage page.
@@ -16,10 +18,10 @@ import { SuperTabsController } from 'ionic2-super-tabs';
   templateUrl: 'catalogo.html',
 })
 
-
+// @Injectable()
 export class CatalogoPage {
 
-  productos: any[] = [];
+  productList: Producto[];
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
 
   constructor(
@@ -30,9 +32,18 @@ export class CatalogoPage {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CatalogoPage');
-    this.productos = this.productoService.getProducts();
+   // Consigue que los tasks tengan la key de Firebase!!!!!!
+   public ionViewWillEnter() {   // En vez de ngInit porque esto es cada vez que se pone visible!!
+    console.log("ionViewWillEnter task.ts");
+    return this.productoService.getProducts()
+      .snapshotChanges().subscribe(item => {
+        this.productList = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["key"] = element.key;
+          this.productList.push(x as Producto);
+        });
+      });
   }
 
   openProducto(object){

@@ -4,13 +4,6 @@ import { ProductoService } from '../../services/producto.services';
 import { Producto } from "../../models/producto.model";
 import { SuperTabsController } from 'ionic2-super-tabs';
 
-/**
- * Generated class for the ProductoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-producto',
@@ -29,36 +22,20 @@ export class ProductoPage {
     private superTabsCtrl: SuperTabsController,
     private alertCtrl: AlertController
   ) {
-    console.log("Constructor de: product.ts");
+    console.log("Constructor de: producto.ts");
 
-
-    if(navParams.get('producto')!=undefined) this.producto = navParams.get('producto');    // Recibe el valor de QR
-    else this.producto = "No vengo de QR";
-
-    if(this.producto.seleccion.length > 0){       // Vengo de carrito, porque tengo una talla. Habria que poner ese valor en el selector
-      this.talla = this.producto.seleccion[0];
-    }
-
-    //Añadimos la primera imagen por defecto
-    this.imageSelected = this.producto.fotos[0];
+    if(navParams.get('producto') != undefined) this.producto = navParams.get('producto');    // Recibe el valor de QR
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductoPage');
   }
-
-
-  cambiarImagen(foto, index){
-    console.log("PULSADA LA FOTO: "+foto+" "+index);
-
-    this.imageSelected = this.producto.fotos[index];
-
-  }
-
   
   addProductToCart(producto){                               // Añadimos al carrito de ProductoService este producto, con los parametros seleccionados.
-    console.log("addProductToCart! "+producto+" con talla: "+this.talla);
+    // console.log("addProductToCart! "+producto+" con talla: "+this.talla);
 
+    /*
     // Añadimos la selección
     producto.seleccion = [this.talla];  // Añadir la seleccion de este producto (talla, etc.)
     if(producto.descuento != 0){
@@ -94,5 +71,6 @@ export class ProductoPage {
   });
 
   alert.present();
-}
+  */
+  }
 }

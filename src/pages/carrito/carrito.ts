@@ -29,7 +29,7 @@ export class CarritoPage {
     public alertCtrl: AlertController,
   ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
-    this.carrito = this.productoService.getCart();
+    // this.carrito = this.productoService.getCart();
   }
 
   openProducto(object){
@@ -42,6 +42,7 @@ export class CarritoPage {
   }
 
   deleteProductoCarrito(producto, index){
+    /*
     let alert = this.alertCtrl.create({
       title: '¿Seguro que quieres borrar este producto?',
       buttons: [
@@ -65,13 +66,15 @@ export class CarritoPage {
   });
 
   alert.present();
-
+*/
   }
 
   // Cuando hace POP y vuelve a esta vista, revisamos el carrito, si hay algo, a esa vista.
   public ionViewWillEnter() {
+    /*
     this.carrito = this.productoService.getCart();
     this.totalCost = this.productoService.getTotalCost();
+    */
   }
 
 

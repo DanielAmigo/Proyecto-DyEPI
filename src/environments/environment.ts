@@ -1,11 +1,11 @@
 export const environment = {        // Datos para vincular Firebase
     production: false,
     firebase: {
-        apiKey: "AIzaSyBgs4VGEbtGx9gx1EYiLH-VwrIwlXlcARk",
-        authDomain: "proyecto-dyepi.firebaseapp.com",
-        databaseURL: "https://proyecto-dyepi.firebaseio.com",
-        projectId: "proyecto-dyepi",
-        storageBucket: "proyecto-dyepi.appspot.com",
-        messagingSenderId: "1051942072633"
+        apiKey: "AIzaSyA-foMmG7DCFcNQi-lkma0N4Ft2CWBA40o",
+        authDomain: "proyecto-dyepi-cce91.firebaseapp.com",
+        databaseURL: "https://proyecto-dyepi-cce91.firebaseio.com",
+        projectId: "proyecto-dyepi-cce91",
+        storageBucket: "",
+        messagingSenderId: "221495197150"
     }
 };

@@ -28,30 +28,7 @@
   </ion-list>
 
   <!-- Slider de imágenes -->
-  <ion-slides class="sliderFotos" pager zoom>
-      <ion-slide *ngFor="let foto of producto.fotos; let i = index">
-        <div class="swiper-zoom-container">
-          <img class="imageSlider" data-src="{{foto}}"/>
-        </div>
-      </ion-slide>
-    </ion-slides>
-
-
-  <!-- Imagenes con selector thumbnail 
-  <div class="image-container" [style.background-image]="'url('+imageSelected+')'"></div>
-  <ion-item>
-      <ion-thumbnail item-start class="thumbnail-photos" *ngFor="let foto of producto.fotos; let i = index">
-          <img [src]="foto" (click)="cambiarImagen(foto, i)">
-      </ion-thumbnail>
-  </ion-item> -->
-
-  
-  {{ producto.colores }}
-  {{ producto.otrosProductos }}
-  {{ producto.talla }}
-  {{ producto.materiales }}
-  {{ producto.precio }}
-  {{ producto.descuento }}
+  <img class="imageSlider" data-src="{{ producto.fotos.principal }}"/>
 
 
   <ion-item>
