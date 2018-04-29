@@ -11,7 +11,7 @@ import { ClientService } from '../../services/client.services';
 @Component({
   selector: 'page-catalogo',
   templateUrl: 'catalogo.html',
- // providers: [ProductoService]     // Defino los servicios a usar
+  //providers: [ProductoService]     // Defino los servicios a usar
 })
 
 
@@ -24,13 +24,13 @@ export class CatalogoPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public productoService: ProductoService,
-    public clientService: ClientService,     // Si lo ponemos no va, peta.
+    public clientService: ClientService,
   ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 
-   
-   public ionViewWillEnter() {   // En vez de ngInit porque esto es cada vez que se pone visible!!
+
+  public ionViewWillEnter() {   // En vez de ngInit porque esto es cada vez que se pone visible!!
     console.log("ionViewWillEnter catalogo.ts");
 
     // Obtenemos la información del cliente y lo almacenamos
@@ -46,10 +46,10 @@ export class CatalogoPage {
         this.productList.push(x as Producto);
       });
     });
-    
   }
 
-  openProducto(object){
+
+  openProducto(object){   // Al hacer click en un producto, te lleva a dicha vista.
     console.log(object);
     this.rootNavCtrl.push('ProductoPage', {producto: object});  // No se puede rootNavCtrl, sino no va.
   }

@@ -1,34 +1,26 @@
-<!--
-  Generated template for the ProductoPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{ producto.descripcion }}</ion-title>
+    <ion-title>{{ producto?.descripcion }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
   <ion-list class="tipoProducto">
     <ion-row>
-      <ion-col>{{ producto.genero }}</ion-col>
+      <ion-col>{{ producto?.genero }}</ion-col>
       <ion-col col-1>-</ion-col>
-      <ion-col>{{ producto.tipo }}</ion-col>
+      <ion-col>{{ producto?.tipo }}</ion-col>
       <ion-col col-1>-</ion-col>
-      <ion-col>{{ producto.caracteristicas }}</ion-col>
+      <ion-col>{{ producto?.caracteristicas }}</ion-col>
     </ion-row>
     <ion-row>
-        <ion-col>{{ producto.referencia }}</ion-col>
+        <ion-col>{{ producto?.referencia }}</ion-col>
     </ion-row>
   </ion-list>
 
   <!-- Slider de imágenes -->
-  <img class="imageSlider" data-src="{{ producto.fotos.principal }}"/>
+  <img class="imageSlider" data-src="{{ producto?.fotos }}"/>
 
 
   <ion-item>
@@ -36,8 +28,29 @@
     <ion-select [(ngModel)]="talla">
       <ion-option value="XS">XS</ion-option>
       <ion-option value="S">S</ion-option>
-    </ion-select>
-</ion-item>
+    </ion-select>    
+  </ion-item>
+
+
+  <ion-toolbar>
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back"></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="3">
+          <ion-slide (click)="filterData(talla)" *ngFor="let talla of aux; let i = index">
+            <p>Talla: {{ talla[i] }}</p>
+            <p>Cantidad en el almacén: {{ talla[i] }}</p>
+            <p>Cantidad expuesta: {{ talla[i] }}</p>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 
 
   <ion-fab bottom right #fab id="fab">

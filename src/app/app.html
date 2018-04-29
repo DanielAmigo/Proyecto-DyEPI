@@ -1,18 +1,21 @@
-<ion-menu [content]="NAV">          <!-- MENU DESPLEGABLE -->
-    <ion-content> <!-- Para añadirle contenido scrollable -->
-        <ion-list>  <!-- Hacemos una puta lista, hay varios tipos -->
-            <button ion-item>
-                <ion-icon item-left name='flame'></ion-icon>
-                Prueba 1
-            </button>  <!-- Un botón enlistado -->
+<ion-menu [content]="NAV">
+    <ion-card text-center class="hide-card">
+        <img src="http://placehold.it/300x200" class="custom-avatar"/>
+        <h2>Victorcodex</h2>
+        <p>Have some p tag here</p>
+        <p>I am the third guy inline here</p>
+        <hr>
+    </ion-card>
+    <ion-content>
+        <ion-list>  <!-- *ngIf="clientService.user == null" -->
+            <button menuClose ion-item href="#" class="loginButton"  (click)="login()">Login</button>
         </ion-list>
-
-        <!-- Botones login y logout, desaparecen cuando está iniciada o no la sesión -->
-        <button ion-button *ngIf="clientService.user == null" (click)="login()">Inicio de sesión</button>
-        <button ion-button *ngIf="clientService.user != null" (click)="logout()">Cierre de sesión</button>
+        <ion-footer no-shadow >
+            <ion-toolbar class="logoutButton" position="bottom">
+                    <button menuClose ion-item href="#"  *ngIf="clientService.user != null" (click)="logout()">Logout</button>
+            </ion-toolbar>
+        </ion-footer>
     </ion-content>
-
 </ion-menu>
 
-
-<ion-nav #NAV [root]="rootPage"></ion-nav>  <!-- #NAV hace que entre el menu -->
+<ion-nav #NAV [root]="rootPage"></ion-nav>

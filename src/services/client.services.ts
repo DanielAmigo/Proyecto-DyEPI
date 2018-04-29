@@ -11,6 +11,7 @@ export class ClientService {
     private dbPath = '/Clients/';
     clientsRef: AngularFireList<Client>;
     user: User;
+    myself: Client;
 
 
     constructor(
@@ -70,6 +71,7 @@ export class ClientService {
                     if (x["key"] === this.user.uid) {     // Si ha encontrado el cliente, lo devuelve.
                         console.log("Encontrado el cliente, devolviendolo");
                         console.log(x as Client);
+                        this.myself = x as Client;
                         return x as Client;
                     }
                 });
