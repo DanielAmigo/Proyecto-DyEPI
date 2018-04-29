@@ -16,6 +16,11 @@ export class ProductoService {
         console.log("AAA");
         this.productsRef = db.list(this.dbPath);
     }
+  
+    getProducts(){      // Método para obtener la snapshot de productos, luego hay que sacarlos manualmente. EJ: Catalogo
+        return this.productsRef = this.db.list(this.dbPath);
+    }
+
 /*
     getTotalCost() {
         this.totalCost = 0;
@@ -25,11 +30,8 @@ export class ProductoService {
         console.log("Precio modificado: "+this.totalCost);
         return this.totalCost;
     }
-*/    
+*/  
 
-    getProducts(){
-        return this.productsRef = this.db.list(this.dbPath);
-    }
 /*
     getCart(){
         return this.cart;

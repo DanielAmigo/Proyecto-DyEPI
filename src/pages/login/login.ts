@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { Client } from "../../models/client.model";
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -12,6 +12,7 @@ import { ClientService } from '../../services/client.services';
   templateUrl: 'login.html',
   providers: [ClientService],
 })
+
 export class LoginPage {
 
   user = {} as Client;
@@ -22,6 +23,7 @@ export class LoginPage {
       public navParams: NavParams,
       public menu: MenuController,
       private clientService: ClientService,
+      private alertCtrl: AlertController,
     ) {
   }
 
@@ -37,7 +39,11 @@ export class LoginPage {
       }
     }
     catch (e) {
-      alert("Debes utilizar una cuenta válida: usuario@usuario.com, usuario");
+      let alert = this.alertCtrl.create({
+        title: "Debes utilizar una cuenta válida",
+        message: "EJ: usuario@usuario.com, usuario"
+      });
+      alert.present();
       console.error(e);
     }
   }
@@ -49,11 +55,16 @@ export class LoginPage {
         client.password
       );
       if (result) {
-        this.clientService.registerButton(client);          // GENERA EL OBJETO CLIENTE Y LO SUBE, CON QUE CLAVE¿?¿??¿
+        console.log("Registrando el correo: "+client.email);
+        this.clientService.registerButton(client);    // GENERA EL OBJETO CLIENTE Y LO SUBE, CON QUE CLAVE¿?¿??¿
         this.navCtrl.setRoot(HomePage);
       }
     } catch (e) {
-      alert("El usuario debe ser un correo electrónico.");
+      let alert = this.alertCtrl.create({
+        title: "El usuario debe ser un correo electrónico",
+        message: "EJ: usuario@usuario.com, usuario"
+      });
+      alert.present();
       console.error(e);
     }
   }

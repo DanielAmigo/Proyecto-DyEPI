@@ -7,8 +7,9 @@
             </button>  <!-- Un botón enlistado -->
         </ion-list>
 
-        <button ion-button (click)="login()">Inicio de sesión</button>
-        <button ion-button>Lorem 2</button>
+        <!-- Botones login y logout, desaparecen cuando está iniciada o no la sesión -->
+        <button ion-button *ngIf="clientService.user == null" (click)="login()">Inicio de sesión</button>
+        <button ion-button *ngIf="clientService.user != null" (click)="logout()">Cierre de sesión</button>
     </ion-content>
 
 </ion-menu>
