@@ -3,6 +3,8 @@ import { Client } from "../models/client.model";
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from "angularfire2/auth";
 import { User } from 'firebase/app';
+import { ProductoCarrito } from "../models/productoCarrito.model";
+import { PROP_METADATA } from "@angular/core/src/util/decorators";
 
 
 @Injectable()
@@ -12,6 +14,7 @@ export class ClientService {
     clientsRef: AngularFireList<Client>;
     user: User;
     myself: Client;
+    carritoRef: AngularFireList<ProductoCarrito>;
 
 
     constructor(
@@ -60,7 +63,35 @@ export class ClientService {
         return this.clientsRef = this.db.list(this.dbPath);
     }
 
-    getMyself(): Client {
+    pushProductoCarrito(productoCarrito){
+        this.afAuth.authState.subscribe(auth => {       // si hemos iniciado sesión, metemos el uid como key y su correo dentro.
+            this.db.object(`Clients/${auth.uid}/carrito/`+productoCarrito[3]+productoCarrito[2]).set({
+                referencia: productoCarrito[0],
+                cantidad: productoCarrito[1],
+                talla: productoCarrito[2],
+                key: productoCarrito[3],
+                color: productoCarrito[4],
+                foto: productoCarrito[5],
+                name: productoCarrito[6],
+                precio: productoCarrito[7]
+            });
+        });
+        console.log("pushProductoCarrito terminado");
+    }
+
+    getMyCarrito() {
+        console.log("getMyCarrito en clientService");
+        if (this.authenticated) {
+            return this.carritoRef = this.db.list(this.dbPath+this.user.uid+"/carrito/");
+        }
+        return null;                // Si no ha encontrado el cliente, null.
+    }
+
+    deleteMyCarritoItem(item: ProductoCarrito){
+        this.db.object(this.dbPath+this.user.uid+"/carrito/"+item.key).remove();
+    }
+
+    getMyself() {
         console.log("getMyself en clientService");
 
         if (this.authenticated) {

@@ -4,11 +4,11 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6 *ngFor="let producto of productList" class="product-item">
-                <ion-card class="cardProducto"  (click)="openProducto(producto.key)">
-                    <img class="imagen" [src]="producto.fotos">
+                <ion-card class="cardProducto"  (click)="openProducto(producto)">
+                    <img class="imagen" [src]="producto.foto">
                     <div class="textoDentro">
                         <div class="textoPrecio"> {{ producto.precio }}€ </div>
-                        <div class="textoDescuento">{{ producto.descuento }}€</div>
+                        <div class="textoDescuento">{{ producto.precioDescuento }}€</div>
                     </div>
                 </ion-card>
             </ion-col>

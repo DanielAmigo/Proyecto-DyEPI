@@ -33,9 +33,6 @@ export class CatalogoPage {
   public ionViewWillEnter() {   // En vez de ngInit porque esto es cada vez que se pone visible!!
     console.log("ionViewWillEnter catalogo.ts");
 
-    // Obtenemos la información del cliente y lo almacenamos
-    this.clientService.getMyself();   // ESTA PARA PROBAR, NO HACE FALTA AQUI
-
     // Obtenemos los productos de su servicio y los almacenamos
     this.productoService.getProducts()
     .snapshotChanges().subscribe(item => {
@@ -49,9 +46,9 @@ export class CatalogoPage {
   }
 
 
-  openProducto(object){   // Al hacer click en un producto, te lleva a dicha vista.
-    console.log(object);
-    this.rootNavCtrl.push('ProductoPage', {producto: object});  // No se puede rootNavCtrl, sino no va.
+  openProducto(object: Producto){   // Al hacer click en un producto, te lleva a dicha vista.
+    console.log("Pasamos a ProductoPage: "+object.referencia);
+    this.rootNavCtrl.push('ProductoPage', {producto: object.referencia});  // No se puede rootNavCtrl, sino no va.
   }
   
 }

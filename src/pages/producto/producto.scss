@@ -48,14 +48,34 @@ page-producto {
 
         p {
             margin: 0;
-            font-size: 1.6rem;
-            line-height: 1.6rem;
+            font-size: 1.4rem;
+            line-height: 1.5rem;
         }
-
+        p.tallaName{
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
         .selected {
-            font-weight: 700;
+            font-weight: 700;   // Negrita cuando se selecciona
+            background: rgb(240, 240, 240);
         }
     }
 
+    .cantidadSelector button{
+        margin: 0 auto;
+    }
+
+    .cantidadInput{
+       width: 25%;
+       text-align: center; 
+    }
+
+    .botonMenos{
+        margin: 0 0 0 auto;
+    }
+
+    .botonMas{
+        margin: 0 auto 0 0;
+    }
 
 }

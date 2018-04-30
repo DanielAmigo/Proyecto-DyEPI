@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ producto?.descripcion }}</ion-title>
+    <ion-title>{{ producto?.name }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
       <ion-col col-1>-</ion-col>
       <ion-col>{{ producto?.tipo }}</ion-col>
       <ion-col col-1>-</ion-col>
-      <ion-col>{{ producto?.caracteristicas }}</ion-col>
+      <ion-col>{{ producto?.subtipo }}</ion-col>
     </ion-row>
     <ion-row>
         <ion-col>{{ producto?.referencia }}</ion-col>
@@ -20,29 +20,23 @@
   </ion-list>
 
   <!-- Slider de imágenes -->
-  <img class="imageSlider" data-src="{{ producto?.fotos }}"/>
-
-
-  <ion-item>
-    <ion-label>Talla</ion-label>
-    <ion-select [(ngModel)]="talla">
-      <ion-option value="XS">XS</ion-option>
-      <ion-option value="S">S</ion-option>
-    </ion-select>    
-  </ion-item>
-
-
+  <ion-list text-center>
+    <img class="imageSlider" data-src="{{ producto?.foto }}"/>
+    <div class="descripcion">{{ producto?.descripcion }}</div>
+  </ion-list>
+  
+  
   <ion-toolbar>
     <ion-row class="filters">
       <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1>
         <ion-icon *ngIf="showLeftButton" name="arrow-back"></ion-icon>
       </ion-col>
       <ion-col no-padding col-10>
-        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="3">
-          <ion-slide (click)="filterData(talla)" *ngFor="let talla of aux; let i = index">
-            <p>Talla: {{ talla[i] }}</p>
-            <p>Cantidad en el almacén: {{ talla[i] }}</p>
-            <p>Cantidad expuesta: {{ talla[i] }}</p>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide [class.selected]="tallaSelected === talla" (click)="seleccionandoTalla(talla)" *ngFor="let talla of tallas; let i = index">
+            <p class="tallaName">Talla {{ tallas[i] }}</p>
+            <p>Expuestas: {{ cantidadTienda[i] }}</p>
+            <p>Almacén: {{ cantidadAlmacen[i] }}</p>
           </ion-slide>
         </ion-slides>
       </ion-col>
@@ -52,9 +46,14 @@
     </ion-row>
   </ion-toolbar>
 
+  <div class="item row">
+    <button class="botonMenos" (click)="decrementarCantidad()">-</button>
+    <input class="cantidadInput" type="number" placeholder="Cantidad" [(ngModel)]="cantidad">
+    <button class="botonMas" (click)="incrementarCantidad()">+</button>
+  </div>
 
   <ion-fab bottom right #fab id="fab">
-    <button ion-fab [disabled]="talla==undefined" (click)="addProductToCart(producto)">
+    <button ion-fab [disabled]="tallaSelected==null" (click)="addProductToCart(producto)">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

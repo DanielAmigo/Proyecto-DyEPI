@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, Slides } from 'io
 import { ProductoService } from '../../services/producto.services';
 import { Producto } from "../../models/producto.model";
 import { SuperTabsController } from 'ionic2-super-tabs';
+import { ClientService } from '../../services/client.services';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @IonicPage()
 @Component({
@@ -12,153 +14,165 @@ import { SuperTabsController } from 'ionic2-super-tabs';
 export class ProductoPage {
   @ViewChild(Slides) slides: Slides;
 
-  producto: Producto;
-  imageSelected: string;
-  talla: string;
-  keyProducto: string;
+  public producto: Producto;
+  public talla: string;
+  public referenciaProd: string;
   public tallaSelected: string;
   public tallas: Array<string>;
-  public cantidadAlmacen: Array<string>;
-  public cantidadTienda: Array<string>;
-  public aux: Array<Array<string>>;
+  public cantidadAlmacen: Array<number>;
+  public cantidadTienda: Array<number>;
+  public colores: Array<string>;
   public showLeftButton: boolean;
   public showRightButton: boolean;
-  public productoRecieved: boolean;
+  public cantidad: number = 1;
 
+  /********************************* Constructor ****************************/
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public productoService: ProductoService,
+    public clientService: ClientService,
     private superTabsCtrl: SuperTabsController,
     private alertCtrl: AlertController,
     public injector: Injector
   ) {
     console.log("Constructor de: producto.ts");
-    if (navParams.get('producto') != undefined) this.keyProducto = navParams.get('producto');
+    if (navParams.get('producto') != undefined) this.referenciaProd = navParams.get('producto');
 
-    console.log("Buscando: " + this.keyProducto);
+    console.log("Buscando: " + this.referenciaProd);
 
     // Inicializamos los arrays
     this.tallas = [];
     this.cantidadAlmacen = [];
     this.cantidadTienda = [];
-    this.productoRecieved = false;
+    this.colores = [];
 
+    // Recibimos los productos y buscamos el nuestro
     this.productoService.getProducts()
       .snapshotChanges().subscribe(item => {
         item.forEach(element => {
           let x = element.payload.toJSON();
           x["key"] = element.key;
-          if (x["key"] === this.keyProducto) {    // Encontrado el producto.
+          if (x["referencia"] === this.referenciaProd) {    // Encontrado el producto.
             this.producto = x as Producto;
             console.log("Producto encontrado.");
             console.log(this.producto);
-            this.productoRecieved = true;
 
-            // Preparamos la informacion en arrays
+            // Preparamos la información en arrays
             Object.keys(x["talla"]).forEach(key => {  
               let value = x["talla"][key];
               this.tallas.push(value);
             });
-            Object.keys(x["cantidadTallaAlmacen"]).forEach(key => {
-              let value2 = x["cantidadTallaAlmacen"][key];
+            Object.keys(x["tallaCantidadAlmacen"]).forEach(key => {
+              let value2 = x["tallaCantidadAlmacen"][key];
               this.cantidadAlmacen.push(value2);
             });
-            Object.keys(x["cantidadTallaTienda"]).forEach(key => {
-              let value3 = x["cantidadTallaTienda"][key];
+            Object.keys(x["tallaCantidadTienda"]).forEach(key => {
+              let value3 = x["tallaCantidadTienda"][key];
               this.cantidadTienda.push(value3);
             });
 
-            for(var i: number = 0; i < 10; i++) {
-              this.aux[i] = [];
-              for(var j: number = 0; j< this.cantidadTienda.length; j++) {
-                  this.aux[i][j] = "";
-              }
-          }
-            this.aux.push(this.tallas);
-            this.aux.push(this.cantidadAlmacen);
-            this.aux.push(this.cantidadTienda);
+            // Inicializamos los botones del gestor de tallas
+            this.showLeftButton = false;
+            this.showRightButton = this.tallas.length > 2;
+
+            Object.keys(x["colores"]).forEach(key => {    // Guardamos los colores bien
+              let value3 = x["colores"][key];
+              this.colores.push(value3);
+            });
+            this.producto.colores = this.colores;
+
+
+            console.log("Objeto conseguido y arrays creados");   // Necesario para que termine antes de que pase a lo siguiente
           }
         });
       });
-
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductoPage');
   }
 
-  private initializeCategories(): void {
-    // Select it by defaut
-    this.tallaSelected = this.tallas[0];
 
-    // Check which arrows should be shown
-    this.showLeftButton = false;
-    this.showRightButton = this.tallas.length > 3;
+  /************ Métodos de gestión del selector de cantidad *******/
+  incrementarCantidad(){
+    let aux: number;
+    for (let index = 0; index < this.tallas.length; index++) {  // Obtenemos la posición seleccionada.
+      if(this.tallas[index] === this.tallaSelected) aux = index;
+    }
+    if(isUndefined(aux)) return this.cantidad += 1;
+
+    // Si tenemos disponibles de dicha talla, subimos.
+    if(this.cantidadAlmacen[aux]+this.cantidadTienda[aux] > this.cantidad) this.cantidad += 1;
+    else this.cantidad = this.cantidadAlmacen[aux]+this.cantidadTienda[aux];
+  }
+  decrementarCantidad(){
+    if(this.cantidad > 1) this.cantidad -= 1;
   }
 
-  public filterData(tallaNumber: number): void {
-    // Handle what to do when a category is selected
-    console.log("Seleccionada: " + tallaNumber);
-  }
 
-  // Method executed when the slides are changed
+  /************* Métodos de gestión de las vistas de talla ********/
   public slideChanged(): void {
     let currentIndex = this.slides.getActiveIndex();
     this.showLeftButton = currentIndex !== 0;
     this.showRightButton = currentIndex !== Math.ceil(this.slides.length() / 3);
   }
-
-  // Method that shows the next slide
   public slideNext(): void {
     this.slides.slideNext();
   }
-
-  // Method that shows the previous slide
   public slidePrev(): void {
     this.slides.slidePrev();
   }
-
-
-  addProductToCart(producto) {                               // Añadimos al carrito de ProductoService este producto, con los parametros seleccionados.
-    // console.log("addProductToCart! "+producto+" con talla: "+this.talla);
-
-    /*
-    // Añadimos la selección
-    producto.seleccion = [this.talla];  // Añadir la seleccion de este producto (talla, etc.)
-    if(producto.descuento != 0){
-      producto.seleccion.push(producto.descuento);
-    }
-    else{
-      producto.seleccion.push(producto.precio);
-    }
-  
-    console.log(producto);
+  public seleccionandoTalla(tallaClicked: string): void {
+    console.log("Seleccionada: " + tallaClicked);
+    this.tallaSelected = tallaClicked;
     
-    const items = this.productoService.pushCart(producto);  // Actualizamos el carrito correspondiente.
-    this.superTabsCtrl.setBadge('CarritoTab', items);       // Actualizamos el numerito del carrito.
+    // Comprobamos si la cantidad es superior a la permitida, para disminuirla
+    let aux: number;
+    for (let index = 0; index < this.tallas.length; index++) {  // Obtenemos la posición seleccionada.
+      if(this.tallas[index] === this.tallaSelected){
+        aux = index;
+      }
+    }
+    if(this.cantidadAlmacen[aux]+this.cantidadTienda[aux] < this.cantidad){ // Si tenemos menos disponibles de dicha talla, que el valor, ponemos el maximo.
+      this.cantidad = this.cantidadAlmacen[aux]+this.cantidadTienda[aux];
+    }
+  }
+
+  /*********************** Añadimos al carrito de ProductoService este producto, con los parametros seleccionados. ******/
+  addProductToCart() {                               
+    console.log("addProductToCart! "+this.producto.name+" con talla: "+this.tallaSelected+" y cantidad: "+this.cantidad);
+
+    // Creamos un nuevo producto con Referencia, Cantidad, Talla, Key+Talla
+    let auxPrecio: number;
+    if(this.producto.precioDescuento!=null) auxPrecio = this.producto.precioDescuento;
+    else auxPrecio = this.producto.precio;
+
+    let productoCarrito = [
+      this.producto.referencia,
+      this.cantidad,
+      this.tallaSelected,
+      this.producto.key,
+      this.producto.colores[0],
+      this.producto.foto,
+      this.producto.name,
+      auxPrecio
+    ];
+    this.clientService.pushProductoCarrito(productoCarrito);  // Escribimos en Firebase
   
     let alert = this.alertCtrl.create({
       title: 'Producto añadido al carrito',
-      message: '¿Quieres ir al carrito?',
-      buttons: [
-        {
+      message: '¿Quieres volver al menú principal?',
+      buttons: [{
           text: 'Sí',
           handler: () => {
             console.log('Yes selected');
             this.navCtrl.pop();  // Volvemos atrás.
-          }
-        },
-        {
+          }},{
           text: 'No',
           handler: () => {
             console.log('No selected!');
-          }
-        }
-      ]
-  });
-  
-  alert.present();
-  */
+          }}]});
+    alert.present();
   }
 }
