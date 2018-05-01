@@ -69,6 +69,17 @@ export class LoginPage {
     }
   }
 
+  goToHome(){
+    //
+    let alert = this.alertCtrl.create({
+      title: "Sin iniciar sesión no podrás añadir objetos al carrito ni usar la ayuda."
+    });
+    alert.present();
+    this.navCtrl.setRoot(HomePage);
+
+  }
+
+  // Que no se abra el menu lateral en esta vista
   ionViewDidEnter() {
     this.menu.enable(false);
   }

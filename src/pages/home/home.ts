@@ -51,8 +51,9 @@ export class HomePage {
         alert("NO ES QR!!");
       }
       else {
-        alert("Ir a la vista del producto leido.");
-        this.navCtrl.push('ProductoPage', {contenido: barcodeData});  // No se puede rootNavCtrl, sino no va.
+        console.log("Ir a la vista del producto leido."+barcodeData.text);
+        console.log(barcodeData);
+        this.navCtrl.push('ProductoPage', {producto: barcodeData.text});  // No se puede rootNavCtrl, sino no va.
       }
     });
 

@@ -2,7 +2,8 @@
 
 <ion-content padding>
 
-    <div class="cartEmpty" *ngIf="carrito?.length === 0">The cart is empty</div>
+    <div class="cartEmpty" *ngIf="carrito?.length === 0 && sesionActiva">El carrito está vacío</div>
+    <div class="cartEmpty" *ngIf="!sesionActiva">Necesitas iniciar sesión para utilizar el carrito</div>
 
     <ion-list *ngIf="carrito?.length > 0">
         <ion-item class="itemCarrito" *ngFor="let producto of carrito; let i = index" tappable (click)="openProducto(producto)">

@@ -1,4 +1,8 @@
 <ion-content padding>
+  <ion-item text-center>
+    <img class="imageSlider" src="../../assets/imgs/primark-logo v2.jpg"/>
+  </ion-item>
+
   <ion-item>
     <ion-label floating>Usuario</ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
@@ -18,4 +22,9 @@
     <ion-icon name="person-add"></ion-icon>
     Crear cuenta
   </button>
+
+  <button ion-button color="light" (click)="goToHome()" class="registrer-btn">
+    Acceder sin cuenta
+  </button>
+
 </ion-content>

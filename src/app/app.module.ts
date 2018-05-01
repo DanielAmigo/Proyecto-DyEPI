@@ -9,7 +9,6 @@ import { HomePage } from '../pages/home/home';
 import { HomePageModule } from '../pages/home/home.module';
 
 import { SuperTabsModule } from 'ionic2-super-tabs';                  // Las tabs que se pueden deslizar
-import { AutohideDirective } from '../directives/autohide/autohide';  // Autoocultado del FAB del QR scanner. NO FUNCIONA
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';       // La funcionalidad de Cordova para escanear
 
 import { ClientService } from '../services/client.services';
@@ -27,9 +26,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
     // Pages
     //HomePage,
-
-    // Directives
-    AutohideDirective
   ],
   imports: [
     BrowserModule,

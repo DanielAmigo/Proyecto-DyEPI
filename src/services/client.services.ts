@@ -82,6 +82,7 @@ export class ClientService {
     getMyCarrito() {
         console.log("getMyCarrito en clientService");
         if (this.authenticated) {
+            console.log("getMyCarrito ESTOY LOGUEADO");
             return this.carritoRef = this.db.list(this.dbPath+this.user.uid+"/carrito/");
         }
         return null;                // Si no ha encontrado el cliente, null.

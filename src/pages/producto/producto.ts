@@ -143,36 +143,55 @@ export class ProductoPage {
   addProductToCart() {                               
     console.log("addProductToCart! "+this.producto.name+" con talla: "+this.tallaSelected+" y cantidad: "+this.cantidad);
 
-    // Creamos un nuevo producto con Referencia, Cantidad, Talla, Key+Talla
-    let auxPrecio: number;
-    if(this.producto.precioDescuento!=null) auxPrecio = this.producto.precioDescuento;
-    else auxPrecio = this.producto.precio;
+    if(!this.clientService.authenticated){    // Si no estamos logueados, volvemos a login
+      let alert = this.alertCtrl.create({
+        title: 'Necesitas estar logueado para comprar',
+        message: '¿Quieres loguearte?',
+        buttons: [{
+            text: 'Sí',
+            handler: () => {
+              console.log('Yes selected');
+              this.navCtrl.push('LoginPage');
+            }},{
+            text: 'No',
+            handler: () => {
+              console.log('No selected!');
+            }}]});
+      alert.present();
+    }
+    
+    else{
+      // Creamos un nuevo producto con Referencia, Cantidad, Talla, Key+Talla
+      let auxPrecio: number;
+      if(this.producto.precioDescuento!=null) auxPrecio = this.producto.precioDescuento;
+      else auxPrecio = this.producto.precio;
 
-    let productoCarrito = [
-      this.producto.referencia,
-      this.cantidad,
-      this.tallaSelected,
-      this.producto.key,
-      this.producto.colores[0],
-      this.producto.foto,
-      this.producto.name,
-      auxPrecio
-    ];
-    this.clientService.pushProductoCarrito(productoCarrito);  // Escribimos en Firebase
-  
-    let alert = this.alertCtrl.create({
-      title: 'Producto añadido al carrito',
-      message: '¿Quieres volver al menú principal?',
-      buttons: [{
-          text: 'Sí',
-          handler: () => {
-            console.log('Yes selected');
-            this.navCtrl.pop();  // Volvemos atrás.
-          }},{
-          text: 'No',
-          handler: () => {
-            console.log('No selected!');
-          }}]});
-    alert.present();
+      let productoCarrito = [
+        this.producto.referencia,
+        this.cantidad,
+        this.tallaSelected,
+        this.producto.key,
+        this.producto.colores[0],
+        this.producto.foto,
+        this.producto.name,
+        auxPrecio
+      ];
+      this.clientService.pushProductoCarrito(productoCarrito);  // Escribimos en Firebase
+    
+      let alert = this.alertCtrl.create({
+        title: 'Producto añadido al carrito',
+        message: '¿Quieres volver al menú principal?',
+        buttons: [{
+            text: 'Sí',
+            handler: () => {
+              console.log('Yes selected');
+              this.navCtrl.pop();  // Volvemos atrás.
+            }},{
+            text: 'No',
+            handler: () => {
+              console.log('No selected!');
+            }}]});
+      alert.present();
+    }
   }
 }

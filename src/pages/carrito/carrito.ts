@@ -16,6 +16,7 @@ export class CarritoPage {
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
   carrito: Array<ProductoCarrito>;
   totalCost: number;
+  sesionActiva: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -30,27 +31,31 @@ export class CarritoPage {
 
   // Cuando hace POP y vuelve a esta vista, revisamos el carrito, si hay algo, a esa vista.
   public ionViewWillEnter() {
-
+    this.sesionActiva = false;
+    this.carrito = [];
     // Obtenemos los productos de su carrito y los almacenamos
-    this.clientService.getMyCarrito()
-    .snapshotChanges().subscribe(item => {
-      // Inicializamos las variables
-      this.carrito = [];
-      item.forEach(element => {        
-        let x = element.payload.toJSON();
-        x["key"] = element.key;
-        console.log(x as ProductoCarrito);
-        this.carrito.push(x as ProductoCarrito);
+    if(this.clientService.getMyCarrito() != null){        // Primero comprobamos si la sesion esta iniciada
+      this.sesionActiva = true;
+      
+      this.clientService.getMyCarrito()
+      .snapshotChanges().subscribe(item => {
+        // Inicializamos las variables
+        item.forEach(element => {        
+          let x = element.payload.toJSON();
+          x["key"] = element.key;
+          console.log(x as ProductoCarrito);
+          this.carrito.push(x as ProductoCarrito);
 
-        // Recalculamos el precio total
-        this.totalCost = 0;
-        this.carrito.forEach(element => {
-          if(element.precioDescuento != null) this.totalCost += (element.precioDescuento*element.cantidad);
-          else this.totalCost += (element.precio*element.cantidad);
+          // Recalculamos el precio total
+          this.totalCost = 0;
+          this.carrito.forEach(element => {
+            if(element.precioDescuento != null) this.totalCost += (element.precioDescuento*element.cantidad);
+            else this.totalCost += (element.precio*element.cantidad);
+          });
+          console.log("TOTAL: "+this.totalCost);
         });
-        console.log("TOTAL: "+this.totalCost)
       });
-    });
+    }
   }
 
   openProducto(object: ProductoCarrito){
