@@ -1,7 +1,17 @@
 <ion-menu [content]="NAV">
     <ion-content>
+        <ion-card text-center class="hide-card" *ngIf="clientService.user != null">
+            <ion-avatar item-left class="menu-avatar">
+                <img class="custom-avatar" src="https://image.flaticon.com/icons/svg/149/149071.svg">
+            </ion-avatar>
+            <h2>{{ clientService.user.email }}</h2>
+            <hr>
+        </ion-card>
         <ion-list>
-            <button menuClose ion-item href="#" class="loginButton" *ngIf="clientService.user == null" (click)="login()">Login</button>
+            <button menuClose ion-item href="#" *ngIf="clientService.user == null" (click)="login()">Login</button>
+            <button menuClose ion-item href="#" (click)="readCode()">
+                <ion-icon item-left name='qr-scanner'></ion-icon>
+                Escanear QR</button>
         </ion-list>
         <ion-footer no-shadow >
             <ion-toolbar class="logoutButton" position="bottom">

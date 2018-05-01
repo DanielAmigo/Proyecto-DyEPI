@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar>
+<ion-header color="primary">
+  <ion-navbar color="primary">
     <ion-title>{{ producto?.name }}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -52,8 +52,8 @@
     <button class="botonMas" (click)="incrementarCantidad()">+</button>
   </div>
 
-  <ion-fab bottom right #fab id="fab">
-    <button ion-fab [disabled]="tallaSelected==null" (click)="addProductToCart(producto)">
+  <ion-fab bottom right #fab id="fab" color="primary">
+    <button ion-fab [disabled]="tallaSelected==null" color="primary" (click)="addProductToCart(producto)">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

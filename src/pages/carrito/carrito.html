@@ -22,8 +22,8 @@
     </ion-list>
     
 
-    <ion-fab bottom left>
-        <button ion-fab (click)="payCart()" [disabled]="carrito?.length === 0">
+    <ion-fab bottom left color="primary">
+        <button ion-fab (click)="payCart()" color="primary" [disabled]="carrito?.length === 0">
             <ion-icon name="done-all"></ion-icon>
         </button>
     </ion-fab>

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HomePage } from '../pages/home/home';
 import { ClientService } from '../services/client.services';
 
@@ -18,7 +18,8 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private barcodeScanner: BarcodeScanner,
   ) {
     // PARA AÑADIR PANTALLA DE INICIO O LOGIN SI NO ESTÁ LOGUEADO. Para los empleados
     /*
@@ -42,6 +43,19 @@ export class MyApp {
 
   logout(){
     this.clientService.signOut();
+  }
+
+  readCode(){           // Boton flotante FAB para leer un QR y a la vuelta abrir el enlace correspondiente
+    console.log("readCode");
+    this.barcodeScanner.scan().then((barcodeData) => {
+      if(barcodeData.cancelled){
+        alert("No has escaneado un QR de Primark. Saliendo...");
+      }
+      else {
+        console.log("readCode yendo a ProductoPage con: "+barcodeData.text);
+        this.nav.push('ProductoPage', {producto: barcodeData.text});  // No se puede rootNavCtrl, sino no va.
+      }
+    });
   }
 
 }

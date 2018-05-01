@@ -46,17 +46,16 @@ export class HomePage {
   }
 
   readCode(){           // Boton flotante FAB para leer un QR y a la vuelta abrir el enlace correspondiente
+    console.log("readCode");
     this.barcodeScanner.scan().then((barcodeData) => {
       if(barcodeData.cancelled){
-        alert("NO ES QR!!");
+        alert("No has escaneado un QR de Primark. Saliendo...");
       }
       else {
-        console.log("Ir a la vista del producto leido."+barcodeData.text);
-        console.log(barcodeData);
+        console.log("readCode yendo a ProductoPage con: "+barcodeData.text);
         this.navCtrl.push('ProductoPage', {producto: barcodeData.text});  // No se puede rootNavCtrl, sino no va.
       }
     });
-
   }
 
   onTabSelected(ev: any) {

@@ -10,8 +10,8 @@
     <super-tab *ngFor="let page of pages" [root]="page.pageName" [title]="page.title" [id]="page.id"></super-tab>
   </super-tabs>
 
-  <ion-fab bottom right #fab id="fab">
-    <button ion-fab (click)="readCode()">
+  <ion-fab bottom right #fab id="fab" color="primary">
+    <button ion-fab (click)="readCode()" color="primary">
       <ion-icon name="qr-scanner"></ion-icon>
     </button>
   </ion-fab>

@@ -19,3 +19,23 @@
     padding: 0px;
     min-height: 0px;
 }
+.imageAvatar {
+    width: 100% !important;
+    height: 100% !important;
+}
+.custom-avatar {
+    height: 30vw;
+    width: 30vw;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.bar.bar-profile {
+    background-color: #444;
+    height: 170px;
+}
+.hide-card {
+  -webkit-box-shadow: none!important;
+}

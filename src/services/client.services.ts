@@ -4,7 +4,6 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from "angularfire2/auth";
 import { User } from 'firebase/app';
 import { ProductoCarrito } from "../models/productoCarrito.model";
-import { PROP_METADATA } from "@angular/core/src/util/decorators";
 
 
 @Injectable()
