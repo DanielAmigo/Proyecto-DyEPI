@@ -5,12 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HomePage } from '../pages/home/home';
 import { ClientService } from '../services/client.services';
+import { SuperTabs } from 'ionic2-super-tabs';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  //@ViewChild(SuperTabs) superTabs: SuperTabs;
 
   rootPage:any = HomePage;
 
@@ -20,6 +22,7 @@ export class MyApp {
     splashScreen: SplashScreen,
     private clientService: ClientService,
     private barcodeScanner: BarcodeScanner,
+
   ) {
     // PARA AÑADIR PANTALLA DE INICIO O LOGIN SI NO ESTÁ LOGUEADO. Para los empleados
     /*
@@ -57,6 +60,13 @@ export class MyApp {
       }
     });
   }
-
+/*
+  changeTab(tab: number){       // Para cambiar de tab desde el menu
+    this.superTabs.slideTo(tab); 
+  }
+  changePage(){       // Para cambiar de tab desde el menu
+    this.nav.push('AboutPage');  // No se puede rootNavCtrl, sino no va.
+  }
+*/
 }
 

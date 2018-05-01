@@ -17,7 +17,7 @@ import { ProductoService } from '../../services/producto.services';
 export class HomePage {
 
   pages = [
-    { pageName: 'HelpPage', title: 'Ayuda', icon: 'help', id: 'HelpTab' },
+    { pageName: 'HelpPage', title: 'Asistencia', icon: 'help', id: 'HelpTab' },
     { pageName: 'MapaPage', title: 'Mapa', icon: 'locate', id: 'MapaTab' },
     { pageName: 'CatalogoPage', title: 'Catalogo', icon: 'shirt', id: 'CatalogoTab' },
     { pageName: 'CarritoPage', title: 'Carrito', icon: 'cart', id: 'CarritoTab' }

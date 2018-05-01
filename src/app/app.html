@@ -12,10 +12,30 @@
             <button menuClose ion-item href="#" (click)="readCode()">
                 <ion-icon item-left name='qr-scanner'></ion-icon>
                 Escanear QR</button>
+            <!--
+            <button menuClose ion-item href="#" (click)="changePage()">
+                <ion-icon item-left name='ios-information-circle'></ion-icon>
+                Acerca de</button>
+            <button menuClose ion-item href="#" (click)="changeTab(0)">
+                <ion-icon item-left name='people'></ion-icon>
+                Asistencia</button>
+            <button menuClose ion-item href="#" (click)="changeTab(1)">
+                <ion-icon item-left name='locate'></ion-icon>
+                Mapa</button>
+            <button menuClose ion-item href="#" (click)="changeTab(2)">
+                <ion-icon item-left name='shirt'></ion-icon>
+                Catálogo</button>
+            <button menuClose ion-item href="#" (click)="changeTab(3)">
+                <ion-icon item-left name='cart'></ion-icon>
+                Carrito</button>
+            <button menuClose ion-item href="#" (click)="changePage()">
+                <ion-icon item-left name='help'></ion-icon>
+                FAQ</button>
+            -->
         </ion-list>
-        <ion-footer no-shadow >
+        <ion-footer no-shadow>
             <ion-toolbar class="logoutButton" position="bottom">
-                    <button menuClose ion-item href="#"  *ngIf="clientService.user != null" (click)="logout()">Logout</button>
+                <button menuClose ion-item href="#" *ngIf="clientService.user != null" (click)="logout()">Logout</button>
             </ion-toolbar>
         </ion-footer>
     </ion-content>

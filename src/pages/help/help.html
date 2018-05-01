@@ -1,4 +1,21 @@
 <ion-content padding>
-  help
-
+  <h1>Solicitar empleado</h1>
+  <b>
+    ¡¡Esta es la principal funcionalidad de nuestra nueva  tienda interactiva!!
+  </b>
+  <p>
+    Mediante los botones que aparecen abajo puedes solicitar que un empleado se dirija a tu posición actual dentro de la tienda y resuelva tus solicitudes.
+  </p>
+  <h6>¿Tienes dudas sobre algún producto?</h6>
+  <button ion-button (click)="consultaEmpleado()" class="ingresar-btn">
+    Consulta a un empleado
+  </button>
+  <h6>¿Quieres que venga un empleado a cobrarte?</h6>
+  <button ion-button (click)="iniciarPeticionPago()" class="ingresar-btn">
+    Iniciar pago
+  </button>
+  <h6>¿Tienes otro problema?</h6>
+  <button ion-button (click)="otros()" class="ingresar-btn">
+    Otros
+  </button>
 </ion-content>

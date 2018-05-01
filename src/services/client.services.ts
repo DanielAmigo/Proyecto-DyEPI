@@ -26,7 +26,6 @@ export class ClientService {
         this.clientsRef = this.db.list(this.dbPath);        // La ruta de los clientes
     }
 
-
     get authenticated(): boolean {  // Nos permite saber si está o no autenticado el usuario.
         this.afAuth.authState.subscribe((user: User) => {       // Comprobamos si tenemos sesión iniciada
             this.user = user;
@@ -41,17 +40,17 @@ export class ClientService {
         }
     }
 
-    /**** LOGIN ****/
+    /*** LOGIN ***/
     signInWithEmailAndPassword(user: string, pass: string): Promise<any> {
         return this.afAuth.auth.signInWithEmailAndPassword(user, pass);
     }
 
-    /**** REGISTER ****/
+    /*** REGISTER ***/
     createUserWithEmailAndPassword(user: string, pass: string): Promise<any> {
         return this.afAuth.auth.createUserWithEmailAndPassword(user, pass);
     }
 
-    /**** LOGOUT ****/
+    /*** LOGOUT ***/
     signOut(): Promise<any> {
         console.log("Cerrando sesión...");
         return this.afAuth.auth.signOut();
@@ -112,6 +111,24 @@ export class ClientService {
     }
 
 
+    /***************************** HELP *************************/
+    pushPeticionCliente(peticionCliente){
+        // Generamos una peticionCliente y la apuntamos en la lista de peticiones
+
+        this.afAuth.authState.subscribe(auth => {       // si hemos iniciado sesión, metemos el uid como key y su correo dentro.
+            this.db.object(`Requests/Clients/${auth.uid}`).set({
+                key: peticionCliente[0],
+                tipo: peticionCliente[1],
+                email: peticionCliente[2],
+                lugar: peticionCliente[3],
+                date: peticionCliente[4],
+            });
+        });
+        console.log("pushPeticionCliente terminado");
+
+    }
+
+    /***************************** LOGIN ****************************/
     registerButton(value: Client): void {                // Cuando el cliente pulsa en la pantalla de Login el botón registrar
         this.afAuth.authState.subscribe(auth => {       // si hemos iniciado sesión, metemos el uid como key y su correo dentro.
             this.db.object(`Clients/${auth.uid}`).set({
