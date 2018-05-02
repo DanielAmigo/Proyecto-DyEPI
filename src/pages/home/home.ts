@@ -27,6 +27,7 @@ export class HomePage {
 
   @ViewChild(SuperTabs) superTabs: SuperTabs;
 
+
   qrData = null;
   scannedCode = null;
   rootNavCtrl: NavController; // Para poder ir a una nueva vista, no dentro de las pestañas.
@@ -41,7 +42,7 @@ export class HomePage {
     private viewCtrl: ViewController,
     private toastCtrl: ToastController,
     private superTabsCtrl: SuperTabsController,
-  ){
+  ) {
     this.rootNavCtrl = this.navParams.get('rootNavCtrl');  // Para poder ir a una nueva vista, no dentro de las pestañas.
   }
 

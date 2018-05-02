@@ -48,11 +48,17 @@ export class CarritoPage {
 
             // Recalculamos el precio total
             this.totalCost = 0;
+            let counter = 0;
             this.carrito.forEach(element => {
+              counter++;
               if (element.precioDescuento != null) this.totalCost += (element.precioDescuento * element.cantidad);
               else this.totalCost += (element.precio * element.cantidad);
             });
             console.log("TOTAL: " + this.totalCost);
+
+            // Actualizamos el badge de carrito
+            this.superTabsCtrl.setBadge('CarritoTab', counter);
+
           });
         });
     }
