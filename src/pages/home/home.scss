@@ -1,3 +1,11 @@
 page-home {
+    button.fab.fab-md.fab-md-grey {
+        background: grey;
+    }
 
+    ion-badge.badge.badge-md.badge-md-primary {
+        background: white;
+        color: black;
+        border-radius: 10px;
+    }
 }

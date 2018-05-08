@@ -1,4 +1,11 @@
 page-producto {
+    button.fab.fab-md.fab-md-primary {
+        background: green;
+    }
+
+    ion-toolbar.toolbar.toolbar-md {
+        margin-bottom: 20px;
+    }
 
     .image-container{
         background-size: cover;

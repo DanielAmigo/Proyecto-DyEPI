@@ -8,7 +8,7 @@
             <hr>
         </ion-card>
         <ion-list>
-            <button menuClose ion-item href="#" *ngIf="clientService.user == null" (click)="login()">Login</button>
+            <button menuClose ion-item href="#" *ngIf="clientService.user == null" (click)="login()"><ion-icon name="exit"></ion-icon> Iniciar Sesión</button>
             <button menuClose ion-item href="#" (click)="readCode()">
                 <ion-icon item-left name='qr-scanner'></ion-icon>
                 Escanear QR</button>
@@ -37,7 +37,7 @@
         </ion-list>
         <ion-footer no-shadow>
             <ion-toolbar class="logoutButton" position="bottom">
-                <button menuClose ion-item href="#" *ngIf="clientService.user != null" (click)="logout()">Logout</button>
+                <button menuClose ion-item href="#" *ngIf="clientService.user != null" (click)="logout()">  <ion-icon name="exit"></ion-icon> Cerrar sesión</button>
             </ion-toolbar>
         </ion-footer>
     </ion-content>

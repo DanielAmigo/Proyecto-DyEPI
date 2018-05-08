@@ -14,7 +14,7 @@
             <p>Talla {{ producto.talla }}</p>
             <p>Cantidad {{ producto.cantidad }}</p>
             <p>Precio {{ producto.precio }}</p>
-            <button ion-button clear item-end (click)="deleteProductoCarrito(producto, i);$event.stopPropagation();">Borrar</button>
+            <button ion-button clear item-end (click)="deleteProductoCarrito(producto, i);$event.stopPropagation();" style="color:red">Borrar</button>
         </ion-item>
         <ion-item>
             <h3>TOTAL: {{ totalCost | number: '1.2-2' }} €</h3>
