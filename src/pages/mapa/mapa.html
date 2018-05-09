@@ -1,8 +1,14 @@
 <!-- Pestañas que van dentro de HOME, por eso eliminamos el header. -->
 
-<ion-content padding>
-
-Página Mapa
-
-</ion-content>
+<ion-content>
+    <ion-slides class="sliderFotos" pager zoom>
+      <ion-slide *ngFor="let planta of plantas">
+        <h2>{{ planta.name }}</h2>
+        <div class="swiper-zoom-container">
+          <img class="mapa" [src]="planta.url" />
+        </div>
+      </ion-slide>
+    </ion-slides>
+  
+  </ion-content>
   
