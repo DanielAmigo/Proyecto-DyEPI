@@ -15,17 +15,24 @@
       <ion-col>{{ producto?.subtipo }}</ion-col>
     </ion-row>
     <ion-row>
-        <ion-col>{{ producto?.referencia }}</ion-col>
+      <ion-col>{{ producto?.referencia }}</ion-col>
     </ion-row>
   </ion-list>
 
   <!-- Slider de imágenes -->
   <ion-list text-center>
-    <img class="imageSlider" data-src="{{ producto?.foto }}"/>
+    <ion-slides class="sliderFotos" zoom>
+      <ion-slide>
+        <div class="swiper-zoom-container">
+          <img class="imageSlider" data-src="{{ producto?.foto }}" />
+        </div>
+      </ion-slide>
+    </ion-slides>
+
     <div class="descripcion">{{ producto?.descripcion }}</div>
   </ion-list>
-  
-  
+
+
   <ion-toolbar>
     <ion-row class="filters">
       <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1>
@@ -40,7 +47,7 @@
           </ion-slide>
         </ion-slides>
       </ion-col>
-      
+
       <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1>
         <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
       </ion-col>
